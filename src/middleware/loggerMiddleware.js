@@ -1,4 +1,3 @@
-
 function LoggerMiddleware() {
     var timer = typeof window.performance !== 'undefined' && typeof window.performance.now === 'function' ? window.performance : Date;
     var console = window.console;

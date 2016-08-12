@@ -3,58 +3,14 @@
 <dom-module id="my-view2">
 
     <template>
-
-        <style>
-            :host {
-                display: block;
-                padding: 10px;
-            }
-
-            .card {
-                box-shadow: 0 2px 2px 0 rgba(0, 0, 0, 0.14), 0 1px 5px 0 rgba(0, 0, 0, 0.12), 0 3px 1px -2px rgba(0, 0, 0, 0.2);
-                padding: 16px;
-                margin: 24px;
-                border-radius: 5px;
-                background-color: #fff;
-                color: #757575;
-            }
-
-            .circle {
-                display: inline-block;
-                height: 64px;
-                width: 64px;
-                border-radius: 50%;
-                background: #ddd;
-                line-height: 64px;
-                font-size: 30px;
-                color: #555;
-                text-align: center;
-            }
-
-            h1 {
-                font-size: 22px;
-                margin: 16px 0;
-                color: #212121;
-            }
-        </style>
-
-
-        <p>
-            <span>You have [[friends.length]] friend(s).</span>
-            <template is="dom-if" if="[[canSortFriends(friends.length)]]">
-                <button on-click="sortFriends">Sort Friends</button>
-            </template>
-        </p>
         <ul>
             <template is="dom-repeat" items="[[friends]]">
                 <li>
                     <span>[[item.name]]</span>
-                    <button on-click="removeFriend">Remove</button>
+                    <button on-click="removeFriend">Add</button>
                 </li>
             </template>
         </ul>
-        <input id="friend-name" placeholder="Name" on-keypress="handleKeypress">
-        <button on-click="addFriend">Add Friend</button>
     </template>
 
     <script>
@@ -66,44 +22,24 @@
                     type: Array,
                     value: [
                         {
-                            name:'Book'
+                            name:'Book',
+                            id:1
                         },
                         {
-                            name:'Calculator'
+                            name:'Calculator',
+                            id:2
                         }, {
-                            name:'Pencil'
+                            name:'Pencil',
+                            id:3
                         }
                     ]
                 }
             },
-            actions: {
-
-                remove: function (name) {
-                    console.log(name);
-                    return {
-                        type: 'ADD_ITEM',
-                        item: name
-                    };
-                },
-                sort: function () {
-                    return {
-                        type: 'SORT_FRIENDS'
-                    };
-                }
-            },
             removeFriend: function (event) {
-                this.dispatch('remove', event.model.item);
-            },
-            sortFriends: function () {
-                this.dispatch('sort');
-            },
-            canSortFriends: function (length) {
-                return length > 1;
-            },
-            handleKeypress: function (event) {
-                if (event.charCode === 13) {
-                    this.addFriend();
-                }
+                this.dispatch({
+                    type: 'ADD_ITEM',
+                    item:event.model.item
+                });
             }
         });
     </script>

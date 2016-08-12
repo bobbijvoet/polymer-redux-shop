@@ -4,52 +4,28 @@
 
     <template>
 
-        <style>
-            :host {
-                display: block;
-                padding: 10px;
-            }
 
-            .card {
-                box-shadow: 0 2px 2px 0 rgba(0, 0, 0, 0.14), 0 1px 5px 0 rgba(0, 0, 0, 0.12), 0 3px 1px -2px rgba(0, 0, 0, 0.2);
-                padding: 16px;
-                margin: 24px;
-                border-radius: 5px;
-                background-color: #fff;
-                color: #757575;
-            }
 
-            .circle {
-                display: inline-block;
-                height: 64px;
-                width: 64px;
-                border-radius: 50%;
-                background: #ddd;
-                line-height: 64px;
-                font-size: 30px;
-                color: #555;
-                text-align: center;
-            }
+        <template is="dom-if" if="{{!total}}">
+            <p>You have no items in your cart, <a href="/#/view2">add some!</a></p>
+        </template>
 
-            h1 {
-                font-size: 22px;
-                margin: 16px 0;
-                color: #212121;
-            }
-        </style>
-
+        <template is="dom-if" if="{{total}}">
+            <p>Total {{total}}</p>
+        </template>
 
         <ul>
-            <template is="dom-repeat" items="[[todos]]" id="repeat">
+            <template is="dom-repeat" items="[[todos]]">
                 <li>
                     <span>[[item.name]]</span>
+                    <span>[[item.amount]]</span>
+                    <button on-click="removeItem">Remove</button>
+
                 </li>
             </template>
         </ul>
 
 
-        <input id="friend-name" placeholder="Name" on-keypress="handleKeypress">
-        <button on-click="addFriend">Add Friend</button>
     </template>
 
     <script>
@@ -61,54 +37,23 @@
             properties: {
                 todos: {
                     type: Array,
-
                     statePath: 'cartReducer.items'
+                },total: {
+                    type: Number,
+                    statePath: 'cartReducer.totalItems'
                 }
             },
 
             actions: {
-                add: function (name) {
+                remove: function (item) {
                     return {
-                        type: 'ADD_FRIEND',
-                        friend: name
-                    };
-                },
-                toggle: function (id) {
-                    return {
-                        type: 'TOGGLE_TODO',
-                        id: id
-                    };
-                },
-                sort: function () {
-                    return {
-                        type: 'SORT_FRIENDS'
+                        type: 'REMOVE_ITEM',
+                        item: item
                     };
                 }
             },
-            addFriend: function () {
-                const input = this.$['friend-name'];
-                if (input.value) {
-                    this.dispatch('add', input.value);
-                    input.value = '';
-                    input.focus();
-                }
-            },
-            toggleTodo: function (event) {
-                this.dispatch('toggle', event.model.item.id);
-            },
-            handleKeypress: function (event) {
-                if (event.charCode === 13) {
-                    this.addFriend();
-                }
-            },
-            ready: function () {
-                var that =this;
-//                store.subscribe(function () {
-////                    Polymer.Base.get(path, state);
-////                    that.$.repeat.render();
-//                    that.notifyPath('todos', store.getState().cartReducer.items.slice(0))
-//                });
-
+            removeItem: function (event) {
+                this.dispatch('remove', event.model.item);
             }
         });
     </script>

@@ -30,17 +30,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
                 color: #757575;
             }
 
-            .circle {
-                display: inline-block;
-                height: 64px;
-                width: 64px;
-                border-radius: 50%;
-                background: #ddd;
-                line-height: 64px;
-                font-size: 30px;
-                color: #555;
-                text-align: center;
-            }
+
 
             h1 {
                 font-size: 22px;
@@ -49,56 +39,30 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
             }
         </style>
 
-
         <div class="card">
-            <div class="circle">1</div>
+
             <h1>Hi [[customer.name]]</h1>
 
+            <template is="dom-if" if="{{total}}">
+                <p>You have [[total]] items</p>
+            </template>
 
-            <p>You have [[friends.length]] friends</p>
-
-
-            <template is="dom-repeat" items="[[greetings]]">
-
-                <li>
-                    <span>[[item.message]]</span>
-                    <button on-click="changeGreeting">Modify</button>
-
-                </li>
+            <template is="dom-if" if="{{!total}}">
+                <p>You have no items, <a href="/#/view2">add some!</a></p>
             </template>
         </div>
-
     </template>
 
     <script>
-
         Polymer({
             is: 'my-view1',
             behaviors: [ReduxBehavior],
             properties: {
-
-            },
-            actions: {
-                modify: function () {
-                    return {
-                        type: 'MODIFY'
-                    };
+                total: {
+                    type: Number,
+                    statePath: 'cartReducer.totalItems'
                 }
-            },
-
-            changeGreeting: function (event) {
-                console.log(event.model);
-                this.dispatch('modify');
-            },
-            ready: function () {
-//                var that = this;
-//                store.subscribe(function () {
-//                        var state = store.getState();
-//                        that.set('todos', state.nameReducer);
-//                });
-
             }
-
         });
 
     </script>
