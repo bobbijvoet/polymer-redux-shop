@@ -2,9 +2,10 @@ var expect = chai.expect;
 
 describe('Cart Reducer', function () {
 
-    var state = cartReducer();
+    var state;
 
     it('should set the default state', function () {
+        state = cartReducer();
         expect(state.items.length).to.equal(0);
     });
 
@@ -49,7 +50,7 @@ describe('Cart Reducer', function () {
     });
 
 
-    it('should calculate the item amount when adding', function () {
+    it('should calculate the item amount when removing', function () {
         state = cartReducer(state, {
             type: 'REMOVE_ITEM',
             item: {
@@ -60,5 +61,4 @@ describe('Cart Reducer', function () {
         expect(state.items.length).to.equal(1);
         expect(state.items[0].amount).to.equal(1);
     });
-
 });
