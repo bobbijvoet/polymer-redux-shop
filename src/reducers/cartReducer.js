@@ -3,15 +3,14 @@ var initialState = {
     totalItems: 0
 };
 
-
 function cartReducer(state, action) {
     if (state === undefined) {
         return initialState;
     }
 
-    var items = state.items;
+    const items = [...state.items];
 
-    var existingItemIndex = items.findIndex((element)=> {
+    const existingItemIndex = items.findIndex((element)=> {
         return element.id === action.item.id;
     });
 
@@ -24,10 +23,10 @@ function cartReducer(state, action) {
                 action.item.amount = 1;
                 items.push(action.item);
             }
-
-            state.totalItems++;
-
-            return Object.assign({}, state, {items: [...items]});
+            return Object.assign({}, state, {
+                items: [...items],
+                totalItems: state.totalItems + 1
+            });
 
         case 'REMOVE_ITEM':
             if (existingItemIndex >= 0) {
@@ -38,13 +37,12 @@ function cartReducer(state, action) {
                     items.splice(existingItemIndex, 1, Object.assign({}, items[existingItemIndex]));
                 }
             }
-
-            state.totalItems--;
-
-            return Object.assign({}, state, {items: [...items]});
+            return Object.assign({}, state, {
+                items: [...items],
+                totalItems: state.totalItems - 1
+            });
 
         default:
-
             return state
     }
 }

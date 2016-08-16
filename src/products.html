@@ -1,13 +1,13 @@
 <link rel="import" href="../bower_components/polymer/polymer.html">
 
-<dom-module id="my-view2">
+<dom-module id="products-view">
 
     <template>
         <ul>
-            <template is="dom-repeat" items="[[friends]]">
+            <template is="dom-repeat" items="[[products]]">
                 <li>
                     <span>[[item.name]]</span>
-                    <button on-click="removeFriend">Add</button>
+                    <button on-click="addProduct">Add</button>
                 </li>
             </template>
         </ul>
@@ -15,30 +15,31 @@
 
     <script>
         Polymer({
-            is: 'my-view2',
+            is: 'products-view',
             behaviors: [ReduxBehavior],
             properties: {
-                friends: {
+                products: {
                     type: Array,
                     value: [
                         {
-                            name:'Book',
-                            id:1
+                            name: 'Book',
+                            id: 1
                         },
                         {
-                            name:'Calculator',
-                            id:2
-                        }, {
-                            name:'Pencil',
-                            id:3
+                            name: 'Calculator',
+                            id: 2
+                        },
+                        {
+                            name: 'Pencil',
+                            id: 3
                         }
                     ]
                 }
             },
-            removeFriend: function (event) {
+            addProduct: function (event) {
                 this.dispatch({
                     type: 'ADD_ITEM',
-                    item:event.model.item
+                    item: event.model.item
                 });
             }
         });

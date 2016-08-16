@@ -17,7 +17,8 @@
     "paper-icon-button": "PolymerElements/paper-icon-button#~1.1.1",
     "polymer": "polymer/polymer#^1.6.0",
     "redux": "https://cdnjs.cloudflare.com/ajax/libs/redux/3.5.2/redux.js",
-    "polymer-redux": "tur-nr/polymer-redux"
+    "polymer-redux": "tur-nr/polymer-redux",
+    "sinon": "~1.17.5"
   },
   "devDependencies": {
     "web-component-tester": "^4.0.0"

@@ -1,21 +1,18 @@
 <link rel="import" href="../bower_components/polymer/polymer.html">
 
-<dom-module id="my-view3">
+<dom-module id="cart-view">
 
     <template>
-
-
-
-        <template is="dom-if" if="{{!total}}">
-            <p>You have no items in your cart, <a href="/#/view2">add some!</a></p>
+        <template is="dom-if" if="[[!total]]">
+            <p>You have no items in your cart, <a href="/#/products">add some!</a></p>
         </template>
 
-        <template is="dom-if" if="{{total}}">
+        <template is="dom-if" if="[[total]]">
             <p>Total {{total}}</p>
         </template>
 
         <ul>
-            <template is="dom-repeat" items="[[todos]]">
+            <template is="dom-repeat" items="[[products]]">
                 <li>
                     <span>[[item.name]]</span>
                     <span>[[item.amount]]</span>
@@ -24,36 +21,27 @@
                 </li>
             </template>
         </ul>
-
-
     </template>
 
     <script>
-
-
         Polymer({
-            is: 'my-view3',
+            is: 'cart-view',
             behaviors: [ReduxBehavior],
             properties: {
-                todos: {
+                products: {
                     type: Array,
                     statePath: 'cartReducer.items'
-                },total: {
+                },
+                total: {
                     type: Number,
                     statePath: 'cartReducer.totalItems'
                 }
             },
-
-            actions: {
-                remove: function (item) {
-                    return {
-                        type: 'REMOVE_ITEM',
-                        item: item
-                    };
-                }
-            },
             removeItem: function (event) {
-                this.dispatch('remove', event.model.item);
+                this.dispatch({
+                    type: 'REMOVE_ITEM',
+                    item: event.model.item
+                });
             }
         });
     </script>
