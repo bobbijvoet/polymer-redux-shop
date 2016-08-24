@@ -1,7 +1,7 @@
 {
-  "name": "app-drawer-template",
+  "name": "polymer-redux-shop",
   "authors": [
-    "The Polymer Authors"
+    "Bob Bijvoet"
   ],
   "private": true,
   "dependencies": {

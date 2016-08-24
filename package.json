@@ -1,16 +1,16 @@
 {
-  "name": "polymer-redux-app",
+  "name": "polymer-redux-shop",
   "version": "1.0.0",
-  "description": "This template is a starting point for building apps using a drawer-based layout.  The layout is provided by `app-layout` elements.",
+  "description": "This is a simple implementation of a polymer app using redux",
   "main": "index.html",
   "directories": {
     "test": "test"
   },
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Run the tests by serving the index.html inside the test dir\" && exit 1"
   },
   "author": "",
-  "license": "ISC",
+  "license": "MIT",
   "devDependencies": {
     "browser-sync": "^2.14.0",
     "chai": "^3.5.0",
